@@ -1,5 +1,8 @@
-import board
+import GameController
 
-board = board.Board()
+def main():
+	game_controller = GameController.GameController()
 
-board.output()
+	game_controller.mainGameLoop()
+
+main()
