@@ -40,5 +40,17 @@ class GameController():
 		return
 
 	def win_verification(self, p):
+		b = self.board_game.get_board()
 
-		return True
+		if (b[0][0] == p and b[0][1] == p and b[0][2] == p): return True
+		if (b[1][0] == p and b[1][1] == p and b[1][2] == p): return True
+		if (b[2][0] == p and b[2][1] == p and b[2][2] == p): return True
+
+		if (b[0][0] == p and b[1][0] == p and b[2][0] == p): return True
+		if (b[0][1] == p and b[1][1] == p and b[2][1] == p): return True
+		if (b[0][2] == p and b[1][2] == p and b[2][2] == p): return True
+
+		if (b[0][0] == p and b[1][1] == p and b[2][2] == p): return True
+		if (b[2][0] == p and b[1][1] == p and b[0][2] == p): return True
+
+		return False
