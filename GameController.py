@@ -1,10 +1,15 @@
 import board
+import AI
+
+import copy
 
 class GameController():
 
 	def __init__(self):
 
 		self.board_game = board.Board()
+		self.ai = AI.AI()
+		self.turn = 0
 
 	def mainGameLoop(self):
 
@@ -15,6 +20,8 @@ class GameController():
 
 		while (not game_over):
 			self.board_game.output()
+
+			self.turn += 1
 
 			print()
 
@@ -27,9 +34,12 @@ class GameController():
 				game_over = True
 				winner = "Player 1"
 			else:
+				
 
+				x, y = self.ai.turn(copy.deepcopy(self.board_game.get_board()), self.turn, 2)
+				self.board_game.input(2, x, y)
 
-				# KI Kalkulation hier
+				self.turn += 1
 
 				if self.win_verification(2):
 					game_over = True
@@ -37,7 +47,11 @@ class GameController():
 
 		print(winner + " wins!")
 
+		self.board_game.output()
+
 		return
+
+	
 
 	def win_verification(self, p):
 		b = self.board_game.get_board()
