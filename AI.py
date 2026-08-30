@@ -1,5 +1,4 @@
 import copy
-import math
 
 class AI():
 
@@ -37,9 +36,9 @@ class AI():
 
 	def score(self, board, turn, p):
 
-		score = 0
+		score = 0 # Score gets calculated based on how many options to win or to loose
 
-		if turn == 9:
+		if turn == 9: # Last turn
 			b = copy.deepcopy(board)
 
 			if self.win_verification(b, 2): score += 11
