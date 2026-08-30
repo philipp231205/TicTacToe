@@ -1,8 +1,8 @@
 import GameController
 
-def main():
-	game_controller = GameController.GameController()
+def main(): 
+	game_controller = GameController.GameController() # initialzies the game loop
 
-	game_controller.mainGameLoop()
+	game_controller.mainGameLoop() # Starts the game
 
-main()
+main() # Runs the mainloop

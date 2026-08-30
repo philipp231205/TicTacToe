@@ -1,4 +1,5 @@
 import copy
+import math
 
 class AI():
 
@@ -21,17 +22,16 @@ class AI():
 					b = copy.deepcopy(board)
 					b[i][j] = 2
 
-					s = self.score(b, turn+1, 1)
+					if self.win_verification(b, 2): s = 10000 ** (9 - turn)
+					else:
+
+						s = self.score(b, turn+1, 1)
 
 
-					if (s > score):
+					if (s > score or score == 0):
 						score = s
 						x = j
 						y = i
-
-						#print("x: " + str(x) + "y: " + str(y))
-
-					#print(score)
 
 		return x, y
 
@@ -39,17 +39,11 @@ class AI():
 
 		score = 0
 
-		#print("Turn: " + str(turn))
+		if turn == 9:
+			b = copy.deepcopy(board)
 
-		if turn == 8:
-			for i in range(3):
-				for j in range(3):
-					b = copy.deepcopy(board)
-					if b[i][j] == 0:
-
-						b[i][j] = 2
-						if self.win_verification(b, 2): score += 10
-						if self.win_verification(b, 1): score -= 10
+			if self.win_verification(b, 2): score += 11
+			elif self.win_verification(b, 1): score -= 10
 
 		else:
 			for i in range(3):
@@ -63,21 +57,20 @@ class AI():
 
 							b[i][j] = 2
 
-							if self.win_verification(b, 2): score += 10
+							if self.win_verification(b, 2): return 100 ** (9 - turn)
 							else:
 								score += self.score(b, turn + 1, 1)
 
-					else:
+					elif (p == 1):
 						if b[i][j] == 0:
 						
 							b[i][j] = 1
 
-							if self.win_verification(b, 2): score -= 10
+							if self.win_verification(b, 1): return -(100 ** (9 - turn))
 							else:
 
 								score += self.score(b, turn + 1, 2)
 
-		#print("Depth:" + str(turn) + ", Score: " + str(score))
 		return score
 
 	

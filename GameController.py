@@ -7,9 +7,9 @@ class GameController():
 
 	def __init__(self):
 
-		self.board_game = board.Board()
-		self.ai = AI.AI()
-		self.turn = 0
+		self.board_game = board.Board() # Initializes a new board
+		self.ai = AI.AI() # Initializes the game Algorithm
+		self.turn = 0 # Sets the turn count to 0
 
 	def mainGameLoop(self):
 
@@ -19,6 +19,7 @@ class GameController():
 		winner = ""
 
 		while (not game_over):
+
 			self.board_game.output()
 
 			self.turn += 1
@@ -33,9 +34,12 @@ class GameController():
 			if self.win_verification(1):
 				game_over = True
 				winner = "Player 1"
-			else:
-				
 
+			elif (self.turn == 9):
+				game_over = True
+				winner = "No one"
+
+			else:
 				x, y = self.ai.turn(copy.deepcopy(self.board_game.get_board()), self.turn, 2)
 				self.board_game.input(2, x, y)
 
@@ -53,7 +57,7 @@ class GameController():
 
 	
 
-	def win_verification(self, p):
+	def win_verification(self, p): # Rework necessary
 		b = self.board_game.get_board()
 
 		if (b[0][0] == p and b[0][1] == p and b[0][2] == p): return True
