@@ -5,49 +5,55 @@ import copy
 
 class GameController():
 
-	def __init__(self):
+	def __init__(self, player):
 
 		self.board_game = board.Board() # Initializes a new board
 		self.ai = AI.AI() # Initializes the game Algorithm
-		self.turn = 0 # Sets the turn count to 0
+		self.turn = 1 # Sets the turn count to 1
+		self.player = player # Sets if the player or the AI is first
 
 	def mainGameLoop(self):
 
-		print("Player 1 begins \n")
+		if (self.player == 1): print("Player starts")
+		elif (self.player == 2): print("AI starts")
 
 		game_over = False
 		winner = ""
 
 		while (not game_over):
 
-			self.board_game.output()
+			if (self.player == 1):
+				self.board_game.output()
+				
+				print()
 
-			self.turn += 1
+				x = int(input("x: "))
+				y = int(input("y: "))
 
-			print()
+				print()
 
-			x = int(input("x: "))
-			y = int(input("y: "))
+				self.board_game.input(1, x, y)
+				self.player = 2
 
-			self.board_game.input(1, x, y)
+			elif (self.player == 2):
+				x, y = self.ai.turn(copy.deepcopy(self.board_game.get_board()), self.turn, 2)
+				self.board_game.input(2, x, y)
+
+				self.player = 1
 
 			if self.win_verification(1):
 				game_over = True
-				winner = "Player 1"
+				winner = "Player"
+
+			elif self.win_verification(2):
+				game_over = True
+				winner = "AI"
 
 			elif (self.turn == 9):
 				game_over = True
 				winner = "No one"
 
-			else:
-				x, y = self.ai.turn(copy.deepcopy(self.board_game.get_board()), self.turn, 2)
-				self.board_game.input(2, x, y)
-
-				self.turn += 1
-
-				if self.win_verification(2):
-					game_over = True
-					winner = "AI"
+			self.turn += 1
 
 		print(winner + " wins!")
 
