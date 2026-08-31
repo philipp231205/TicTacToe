@@ -9,7 +9,7 @@ class AI():
 
 		# Calculating the next move for AI
 
-		score = 0
+		best_score = None
 		x = 0
 		y = 0
 
@@ -17,18 +17,22 @@ class AI():
 			for j in range(3):
 
 				if (board[i][j] == 0):
-
 					b = copy.deepcopy(board)
-					b[i][j] = 2
+					b[i][j] = p
 
-					if self.win_verification(b, 2): s = 10000 ** (9 - turn)
-					else:
+					opponent = 1 if p == 2 else 2
+					s = self.score(b, turn + 1, opponent)
 
-						s = self.score(b, turn+1, 1)
-
-
-					if (s > score or score == 0):
-						score = s
+					if best_score is None:
+						best_score = s
+						x = j
+						y = i
+					elif p == 2 and s > best_score:
+						best_score = s
+						x = j
+						y = i
+					elif p == 1 and s < best_score:
+						best_score = s
 						x = j
 						y = i
 
@@ -36,41 +40,37 @@ class AI():
 
 	def score(self, board, turn, p):
 
-		score = 0 # Score gets calculated based on how many options to win or to loose
+		# Terminal positions: AI win, player win, or draw
+		if self.win_verification(board, 2):
+			return 10 - (turn - 1)
+		if self.win_verification(board, 1):
+			return (turn - 1) - 10
 
-		if turn == 9: # Last turn
-			b = copy.deepcopy(board)
+		moves = []
+		for i in range(3):
+			for j in range(3):
+				if board[i][j] == 0:
+					moves.append((i, j))
 
-			if self.win_verification(b, 2): score += 11
-			elif self.win_verification(b, 1): score -= 10
+		if not moves:
+			return 0
 
-		else:
-			for i in range(3):
-				for j in range(3):
+		best_score = None
+		opponent = 1 if p == 2 else 2
 
-					b = copy.deepcopy(board)
+		for i, j in moves:
+			board[i][j] = p
+			s = self.score(board, turn + 1, opponent)
+			board[i][j] = 0
 
-					if (p == 2):
+			if best_score is None:
+				best_score = s
+			elif p == 2 and s > best_score:
+				best_score = s
+			elif p == 1 and s < best_score:
+				best_score = s
 
-						if b[i][j] == 0:
-
-							b[i][j] = 2
-
-							if self.win_verification(b, 2): return 100 ** (9 - turn)
-							else:
-								score += self.score(b, turn + 1, 1)
-
-					elif (p == 1):
-						if b[i][j] == 0:
-						
-							b[i][j] = 1
-
-							if self.win_verification(b, 1): return -(100 ** (9 - turn))
-							else:
-
-								score += self.score(b, turn + 1, 2)
-
-		return score
+		return best_score
 
 	
 	def win_verification(self, board, p):
@@ -88,4 +88,3 @@ class AI():
 			if (b[2][0] == p and b[1][1] == p and b[0][2] == p): return True
 	
 			return False
-
