@@ -7,71 +7,57 @@ class AI():
 
 	def turn(self, board, turn, p):
 
-		# Calculating the next move for AI
-
 		best_score = None
-		x = 0
-		y = 0
+		x = None
+		y = None
 
 		for i in range(3):
 			for j in range(3):
 
 				if (board[i][j] == 0):
+
 					b = copy.deepcopy(board)
-					b[i][j] = p
 
-					opponent = 1 if p == 2 else 2
-					s = self.score(b, turn + 1, opponent)
+					b[i][j] = 2
 
-					if best_score is None:
+					s = self.score(b, turn + 1, 1)
+
+					if (best_score == None):
 						best_score = s
 						x = j
 						y = i
-					elif p == 2 and s > best_score:
-						best_score = s
-						x = j
-						y = i
-					elif p == 1 and s < best_score:
+					elif (best_score < s):
 						best_score = s
 						x = j
 						y = i
 
-		return x, y
+		return x,y
+		
 
 	def score(self, board, turn, p):
 
-		# Terminal positions: AI win, player win, or draw
-		if self.win_verification(board, 2):
-			return 10 - (turn - 1)
-		if self.win_verification(board, 1):
-			return (turn - 1) - 10
-
-		moves = []
-		for i in range(3):
-			for j in range(3):
-				if board[i][j] == 0:
-					moves.append((i, j))
-
-		if not moves:
-			return 0
+		if self.win_verification(board, 2): return 10 - (turn -1)
+		elif self.win_verification(board, 1): return (turn - 1) - 10
 
 		best_score = None
 		opponent = 1 if p == 2 else 2
 
-		for i, j in moves:
-			board[i][j] = p
-			s = self.score(board, turn + 1, opponent)
-			board[i][j] = 0
+		for i in range(3):
+			for j in range(3):
 
-			if best_score is None:
-				best_score = s
-			elif p == 2 and s > best_score:
-				best_score = s
-			elif p == 1 and s < best_score:
-				best_score = s
+				if (board[i][j] == 0):
 
-		return best_score
+					b = copy.deepcopy(board)
+					b[i][j] = p
 
+					s = self.score(b, turn + 1, opponent)
+
+					if (best_score == None): best_score = s
+					elif (best_score < s and p == 2): best_score = s
+					elif (best_score > s and p == 1): best_score = s
+
+		if (best_score == None): return 0
+		else: return best_score
 	
 	def win_verification(self, board, p):
 			b = board
