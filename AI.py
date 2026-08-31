@@ -5,7 +5,7 @@ class AI():
 	def __init__(self):
 		pass
 
-	def turn(self, board, turn, p):
+	def turn(self, board, turn, p): # Returns coordinates for best possible move
 
 		best_score = None
 		x = None
@@ -14,14 +14,15 @@ class AI():
 		for i in range(3):
 			for j in range(3):
 
-				if (board[i][j] == 0):
+				if (board[i][j] == 0): # Loops through every possible move for AI
 
 					b = copy.deepcopy(board)
 
 					b[i][j] = 2
 
-					s = self.score(b, turn + 1, 1)
+					s = self.score(b, turn + 1, 1) # Scores the move
 
+					# Stores the coordinates of the best move
 					if (best_score == None):
 						best_score = s
 						x = j
@@ -36,8 +37,8 @@ class AI():
 
 	def score(self, board, turn, p):
 
-		if self.win_verification(board, 2): return 10 - (turn -1)
-		elif self.win_verification(board, 1): return (turn - 1) - 10
+		if self.win_verification(board, 2): return 10 - (turn -1) # If AI wins, return score of 10 (including how deep the win was)
+		elif self.win_verification(board, 1): return (turn - 1) - 10 # If Player wins, return score of - 10 (including how deep the loss was)
 
 		best_score = None
 		opponent = 1 if p == 2 else 2
@@ -45,13 +46,14 @@ class AI():
 		for i in range(3):
 			for j in range(3):
 
-				if (board[i][j] == 0):
+				if (board[i][j] == 0): # Loop through every possible move
 
 					b = copy.deepcopy(board)
 					b[i][j] = p
 
-					s = self.score(b, turn + 1, opponent)
+					s = self.score(b, turn + 1, opponent) # Find the best move for the opponent that is expected
 
+					# Find the best move for AI or worst move for AI, depending on whose turn it is
 					if (best_score == None): best_score = s
 					elif (best_score < s and p == 2): best_score = s
 					elif (best_score > s and p == 1): best_score = s

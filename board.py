@@ -20,7 +20,10 @@ class Board():
 
 		for i in self.board:
 			for j in i:
-				print(j, end="")
+				p = "-"
+				if (j == 1): p = "x"
+				elif (j == 2): p = "o"
+				print(p, end="")
 			print()
 
 
