@@ -8,12 +8,14 @@ def test():
     Starts the test run and prints final result.
     """
 
+    # Sets up a board an algorithm
     board = b.Board()
     ai = a.AI()
 
+    # Runs the test
     results = run_test(board.get_board(), 1)
 
-    print("Final result: " + str(results[0]) + " wins, " + str(results[1]) + " draws, " + str(results[2]) + " losses")
+    print("Final result: " + str(results[0]) + " wins, " + str(results[1]) + " draws, " + str(results[2]) + " losses") # Final output
 
 
 def run_test(board, turn):
@@ -26,7 +28,7 @@ def run_test(board, turn):
 
     for i in range(3):
         for j in range(3):
-            if (board[i][j] == 0):
+            if (board[i][j] == 0): # Runs through all possible moves
                 b = copy.deepcopy(board)
                 b[i][j] = 1
 
@@ -34,7 +36,7 @@ def run_test(board, turn):
                 elif (turn == 9): results[1] += 1
                 else:
 
-                    x,y = a.AI().turn(board, turn+1, 2)
+                    x,y = a.AI().turn(board, turn+1)
 
                     b[i][j] = 2
 

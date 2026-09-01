@@ -16,16 +16,16 @@ class AI():
 		Loops over all moves and scores them with score(), then returns best possible.
 		"""
 
-		best_score = None
-		x = None
-		y = None
+		best_score = None # Current best score to compare against
+		x = None # x coordinate to return
+		y = None # y coordinate to return
 
 		for i in range(3):
-			for j in range(3):
+			for j in range(3): # Loops through all possible moves
 
-				if (board[i][j] == 0): # Loops through every possible move for AI
+				if (board[i][j] == 0): # Only procede if field is empty
 
-					b = copy.deepcopy(board)
+					b = copy.deepcopy(board) # Create a copy of the board to modify
 
 					b[i][j] = 2
 
@@ -58,7 +58,7 @@ class AI():
 		if w.Win_verification.v(board, 2): return 10 - (turn -1) # If AI wins, return score of 10 (including how deep the win was)
 		elif w.Win_verification.v(board, 1): return (turn - 1) - 10 # If Player wins, return score of - 10 (including how deep the loss was)
 
-		best_score = None
+		best_score = None 
 		opponent = 1 if p == 2 else 2
 
 		for i in range(3):
@@ -76,5 +76,5 @@ class AI():
 					elif (best_score < s and p == 2): best_score = s
 					elif (best_score > s and p == 1): best_score = s
 
-		if (best_score == None): return 0
+		if (best_score == None): return 0 # If all moves result in a draw return 0
 		else: return best_score

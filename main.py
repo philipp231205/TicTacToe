@@ -10,7 +10,7 @@ def main():
 
 	parser = argparse.ArgumentParser()
 
-	parser.add_argument( # Parses if player starts or not
+	parser.add_argument( # Parses if player starts or not, 1 = player starts, 2 = algorithm starst
 		"-p",
 		"--player",
 		type = int,

@@ -1,0 +1,35 @@
+## My implementation of the minimax algorithm for TicTacToe
+
+This Program lets you play TicTacToe against my algorithm
+
+Run the game with
+
+python main.py -p 1 (To start the game)
+
+python main.py -p 2 (To let the algorithm start)
+
+You can test the algorithm by running:
+
+python test.py
+
+
+## How the algorithm works (short):
+
+The algorithm takes the current board state, and calculates a score for each possible move.
+
+It then chooses the move with the highest score to perform.
+
+### Score Calculation:
+
+If the algorithm wins, it returns 10 - turn depth
+If the player wins, it returns turn depth - 10
+
+From here, AI will always prioritize the moves where it wins, and depriotizes the ones where the player wins.
+
+If a move is neither winning or loosing, it goes through all possible opponent moves.
+
+Recursion starts here:
+
+If the code is evaluating an algorithm move, it chooses the move with the lowest score from the possible player moves (expecting player to make the best possible move). It then finds the best possible move from that state etc.
+
+The lowest score for the player is found by recursively calling the score function.

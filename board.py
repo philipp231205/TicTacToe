@@ -1,5 +1,3 @@
-
-
 class Board():
 	"""
 	Board class with board state and helper functions
@@ -14,7 +12,7 @@ class Board():
 
 		# Filling the board
 
-		for i in range(3):
+		for i in range(3): # Fills up a 3x3 matrix with 0s
 			self.board.append([0,0,0])
 
 	def get_board(self):
@@ -30,12 +28,12 @@ class Board():
 		"""
 
 		for i in self.board:
-			for j in i:
-				p = "-"
-				if (j == 1): p = "x"
-				elif (j == 2): p = "o"
+			for j in i: # Loops through the matrix
+				p = "-" # Empty slots displayed as -
+				if (j == 1): p = "x" # Player is x
+				elif (j == 2): p = "o" # Algorithm is o
 				print(p, end="")
-			print()
+			print() # switch to next line
 
 
 	def input(self, p, x, y):
@@ -43,4 +41,4 @@ class Board():
 		Processes new input.
 		"""
 
-		self.board[y][x] = p
+		self.board[y][x] = p # Changes board state at given coordinates
