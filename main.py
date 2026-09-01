@@ -1,7 +1,12 @@
 import GameController
 import argparse
 
-def main(): 
+def main():
+	"""
+	Starts the TicTacToe Game.
+
+	Parses player argument and then starts the game.
+	"""
 
 	parser = argparse.ArgumentParser()
 

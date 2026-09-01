@@ -1,8 +1,12 @@
 import board as b
 import AI as a
 import copy
+import win_verification as w
 
 def test():
+    """
+    Starts the test run and prints final result.
+    """
 
     board = b.Board()
     ai = a.AI()
@@ -13,6 +17,11 @@ def test():
 
 
 def run_test(board, turn):
+    """
+    Given player starts, runs through every possible move player can make.
+
+    Stores amount the game results in AI win, draw or Player win.
+    """
     results = [0,0,0] # AI wins, draws, Player wins
 
     for i in range(3):
@@ -21,7 +30,7 @@ def run_test(board, turn):
                 b = copy.deepcopy(board)
                 b[i][j] = 1
 
-                if win_verification(b, 1): results[2] += 1
+                if w.Win_verification.v(b, 1): results[2] += 1
                 elif (turn == 9): results[1] += 1
                 else:
 
@@ -29,7 +38,7 @@ def run_test(board, turn):
 
                     b[i][j] = 2
 
-                    if win_verification(b, 2): results[0] += 1
+                    if w.Win_verification.v(b, 2): results[0] += 1
                     else:
 
                         r = run_test(b, turn+2)
@@ -39,21 +48,5 @@ def run_test(board, turn):
                         results[2] += r[2]
 
     return results
-
-def win_verification(b, p): # Rework necessary
-
-    if (b[0][0] == p and b[0][1] == p and b[0][2] == p): return True
-    if (b[1][0] == p and b[1][1] == p and b[1][2] == p): return True
-    if (b[2][0] == p and b[2][1] == p and b[2][2] == p): return True
-
-    if (b[0][0] == p and b[1][0] == p and b[2][0] == p): return True
-    if (b[0][1] == p and b[1][1] == p and b[2][1] == p): return True
-    if (b[0][2] == p and b[1][2] == p and b[2][2] == p): return True
-
-    if (b[0][0] == p and b[1][1] == p and b[2][2] == p): return True
-    if (b[2][0] == p and b[1][1] == p and b[0][2] == p): return True
-
-    return False
-
 
 test()

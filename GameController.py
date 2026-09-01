@@ -1,11 +1,21 @@
 import board
 import AI
+import win_verification as w
 
 import copy
 
 class GameController():
+	"""
+	Handles the Game.
+
+	Controls turns and checks for win states.
+	"""
 
 	def __init__(self, player):
+
+		"""
+		Sets up the game state.
+		"""
 
 		self.board_game = board.Board() # Initializes a new board
 		self.ai = AI.AI() # Initializes the game Algorithm
@@ -13,6 +23,11 @@ class GameController():
 		self.player = player # Sets if the player or the AI is first
 
 	def mainGameLoop(self):
+		"""
+		Loops until a winner is found or it's a draw.
+
+		One loop is one turn, with either player or AI moving.
+		"""
 
 		if (self.player == 1): print("Player starts")
 		elif (self.player == 2): print("AI starts")
@@ -36,16 +51,16 @@ class GameController():
 				self.player = 2
 
 			elif (self.player == 2):
-				x, y = self.ai.turn(copy.deepcopy(self.board_game.get_board()), self.turn, 2)
+				x, y = self.ai.turn(copy.deepcopy(self.board_game.get_board()), self.turn)
 				self.board_game.input(2, x, y)
 
 				self.player = 1
 
-			if self.win_verification(1):
+			if w.Win_verification.v(self.board_game.get_board(), 1):
 				game_over = True
 				winner = "Player"
 
-			elif self.win_verification(2):
+			elif w.Win_verification.v(self.board_game.get_board(), 2):
 				game_over = True
 				winner = "AI"
 
@@ -60,21 +75,3 @@ class GameController():
 		self.board_game.output()
 
 		return
-
-	
-
-	def win_verification(self, p): # Rework necessary
-		b = self.board_game.get_board()
-
-		if (b[0][0] == p and b[0][1] == p and b[0][2] == p): return True
-		if (b[1][0] == p and b[1][1] == p and b[1][2] == p): return True
-		if (b[2][0] == p and b[2][1] == p and b[2][2] == p): return True
-
-		if (b[0][0] == p and b[1][0] == p and b[2][0] == p): return True
-		if (b[0][1] == p and b[1][1] == p and b[2][1] == p): return True
-		if (b[0][2] == p and b[1][2] == p and b[2][2] == p): return True
-
-		if (b[0][0] == p and b[1][1] == p and b[2][2] == p): return True
-		if (b[2][0] == p and b[1][1] == p and b[0][2] == p): return True
-
-		return False

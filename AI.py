@@ -1,11 +1,20 @@
 import copy
+import win_verification as w
 
 class AI():
+	"""
+	Class to calculate the best possible move
+	"""
 
 	def __init__(self):
 		pass
 
-	def turn(self, board, turn, p): # Returns coordinates for best possible move
+	def turn(self, board, turn): # Returns coordinates for best possible move
+		"""
+		Returns coordinates for best possible move.
+
+		Loops over all moves and scores them with score(), then returns best possible.
+		"""
 
 		best_score = None
 		x = None
@@ -36,9 +45,18 @@ class AI():
 		
 
 	def score(self, board, turn, p):
+		"""
+		Returns the score for a board state.
 
-		if self.win_verification(board, 2): return 10 - (turn -1) # If AI wins, return score of 10 (including how deep the win was)
-		elif self.win_verification(board, 1): return (turn - 1) - 10 # If Player wins, return score of - 10 (including how deep the loss was)
+		If AI or player wins, return 10 or -10, with turn weighted in.
+
+		Else it runs through all possible moves, and picks the best one of it.
+
+		While looping through all, it finds the best possible move for the other player, which is expected to come.
+		"""
+
+		if w.Win_verification.v(board, 2): return 10 - (turn -1) # If AI wins, return score of 10 (including how deep the win was)
+		elif w.Win_verification.v(board, 1): return (turn - 1) - 10 # If Player wins, return score of - 10 (including how deep the loss was)
 
 		best_score = None
 		opponent = 1 if p == 2 else 2
@@ -60,19 +78,3 @@ class AI():
 
 		if (best_score == None): return 0
 		else: return best_score
-	
-	def win_verification(self, board, p):
-			b = board
-	
-			if (b[0][0] == p and b[0][1] == p and b[0][2] == p): return True
-			if (b[1][0] == p and b[1][1] == p and b[1][2] == p): return True
-			if (b[2][0] == p and b[2][1] == p and b[2][2] == p): return True
-	
-			if (b[0][0] == p and b[1][0] == p and b[2][0] == p): return True
-			if (b[0][1] == p and b[1][1] == p and b[2][1] == p): return True
-			if (b[0][2] == p and b[1][2] == p and b[2][2] == p): return True
-	
-			if (b[0][0] == p and b[1][1] == p and b[2][2] == p): return True
-			if (b[2][0] == p and b[1][1] == p and b[0][2] == p): return True
-	
-			return False

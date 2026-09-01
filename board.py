@@ -1,8 +1,15 @@
 
 
 class Board():
+	"""
+	Board class with board state and helper functions
+	"""
 
 	def __init__(self):
+		"""
+		Sets up an empty board.
+		"""
+
 		self.board = []
 
 		# Filling the board
@@ -11,12 +18,16 @@ class Board():
 			self.board.append([0,0,0])
 
 	def get_board(self):
+		"""
+		Returns the board 3x3 array.
+		"""
 		return self.board
 
 
 	def output(self):
-
-		# Outputting the current board State
+		"""
+		Prints the board onto the Terminal.
+		"""
 
 		for i in self.board:
 			for j in i:
@@ -28,7 +39,8 @@ class Board():
 
 
 	def input(self, p, x, y):
-
-		# Processing a new input
+		"""
+		Processes new input.
+		"""
 
 		self.board[y][x] = p
