@@ -1,17 +1,22 @@
-## My implementation of the minimax algorithm for TicTacToe
+# My implementation of the minimax algorithm for TicTacToe
 
 This Program lets you play TicTacToe against my algorithm
 
 Run the game with
 
+```bash
 python main.py -p 1 (To start the game)
+```
 
+```bash
 python main.py -p 2 (To let the algorithm start)
+```
 
 You can test the algorithm by running:
 
+```bash
 python test.py
-
+```
 
 ## How the algorithm works (short):
 

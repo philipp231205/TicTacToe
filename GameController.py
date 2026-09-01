@@ -56,11 +56,11 @@ class GameController():
 
 				self.player = 1 # now its players turn
 
-			if w.Win_verification.v(self.board_game.get_board(), 1): # Check if player has won
+			if w.Win_verification().v(self.board_game.get_board(), 1): # Check if player has won
 				game_over = True
 				winner = "Player"
 
-			elif w.Win_verification.v(self.board_game.get_board(), 2): # Check if algorithm has won
+			elif w.Win_verification().v(self.board_game.get_board(), 2): # Check if algorithm has won
 				game_over = True
 				winner = "AI"
 

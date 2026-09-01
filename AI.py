@@ -55,8 +55,8 @@ class AI():
 		While looping through all, it finds the best possible move for the other player, which is expected to come.
 		"""
 
-		if w.Win_verification.v(board, 2): return 10 - (turn -1) # If AI wins, return score of 10 (including how deep the win was)
-		elif w.Win_verification.v(board, 1): return (turn - 1) - 10 # If Player wins, return score of - 10 (including how deep the loss was)
+		if w.Win_verification().v(board, 2): return 10 - (turn -1) # If AI wins, return score of 10 (including how deep the win was)
+		elif w.Win_verification().v(board, 1): return (turn - 1) - 10 # If Player wins, return score of - 10 (including how deep the loss was)
 
 		best_score = None 
 		opponent = 1 if p == 2 else 2

@@ -3,10 +3,10 @@ class Win_verification():
     Class to centralize winning verification
     """
 
-    def __init__():
+    def __init__(self):
         pass
 
-    def v(b, p):
+    def v(self, b, p):
         """
         Returns true if p wins on board b, else false
         """
